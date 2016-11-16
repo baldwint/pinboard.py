@@ -1,8 +1,19 @@
+import sys
+
+if sys.version_info < (3,):
+    import urllib2 as urllib_request
+    from urllib2.urlparse import urlparse
+    from urllib2 import HTTPError
+else:
+    import urllib.request as urllib_request
+    from urllib.parse import urlparse
+    from urllib.error import HTTPError
+
+
 import datetime
 import json
 import operator
 import urllib
-import urllib2
 import logging
 
 import exceptions
@@ -48,7 +59,7 @@ class Bookmark(object):
         return Pinboard(self.token)
 
     def __repr__(self):
-        parse_result = urllib2.urlparse.urlparse(self.url)
+        parse_result = urlparse(self.url)
         return "<Bookmark description=\"{}\" url=\"{}\">".format(self.description.encode("utf-8"), parse_result.netloc)
 
     def save(self, update_time=False):
@@ -164,10 +175,10 @@ class PinboardCall(object):
         final_url = "{}?{}".format(url, query_string)
 
         try:
-            request = urllib2.Request(final_url)
-            opener = urllib2.build_opener(urllib2.HTTPSHandler)
+            request = urllib_request.Request(final_url)
+            opener = urllib_request.build_opener(urllib_request.HTTPSHandler)
             response = opener.open(request)
-        except urllib2.HTTPError as e:
+        except HTTPError as e:
             error_mappings = {
                 401: exceptions.PinboardAuthenticationError,
                 403: exceptions.PinboardForbiddenError,

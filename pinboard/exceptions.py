@@ -1,17 +1,22 @@
-import urllib2
+import sys
+
+if sys.version_info < (3,):
+    from urllib2 import HTTPError
+else:
+    from urllib.error import HTTPError
 
 class PinboardError(Exception):
     pass
 
-class PinboardServerError(urllib2.HTTPError):
+class PinboardServerError(HTTPError):
     pass
 
-class PinboardServiceUnavailable(urllib2.HTTPError):
+class PinboardServiceUnavailable(HTTPError):
     pass
 
-class PinboardAuthenticationError(urllib2.HTTPError):
+class PinboardAuthenticationError(HTTPError):
     pass
 
-class PinboardForbiddenError(urllib2.HTTPError):
+class PinboardForbiddenError(HTTPError):
     pass
 

@@ -16,7 +16,7 @@ import operator
 import urllib
 import logging
 
-import exceptions
+import pinboard.exceptions
 
 PINBOARD_API_ENDPOINT = "https://api.pinboard.in/v1/"
 PINBOARD_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"

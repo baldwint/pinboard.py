@@ -16,6 +16,7 @@ import datetime
 import json
 import operator
 import logging
+import codecs
 
 import pinboard.exceptions
 
@@ -192,7 +193,8 @@ class PinboardCall(object):
             raise
         else:
             if parse_response:
-                json_response = json.load(response)
+                reader = codecs.getreader("utf-8")
+                json_response = json.load(reader(response))
 
                 for field in Pinboard.DATE_FIELDS:
                     if field in json_response:

@@ -1,7 +1,14 @@
 #!/usr/bin/env python
 
 from pinboard import Pinboard
-import ConfigParser
+
+import sys
+
+if sys.version_info < (3,):
+    import ConfigParser as configparser
+else:
+    import configparser
+
 import datetime
 import os
 import unittest
@@ -45,7 +52,7 @@ class TestPinboardAPI(unittest.TestCase):
         if api_token is None:
             try:
                 config_file = os.path.expanduser("~/.pinboardrc")
-                config = ConfigParser.RawConfigParser()
+                config = configparser.RawConfigParser()
                 with open(config_file, "r") as f:
                     config.readfp(f)
             except:
@@ -104,7 +111,7 @@ class TestPinboardAPI(unittest.TestCase):
         return inner
 
     def check_meta_updated(self, bookmark_1, bookmark_2):
-        self.retry_until_true(lambda: bookmark_1 <> bookmark_2,
+        self.retry_until_true(lambda: bookmark_1 != bookmark_2,
                 msg="{} == {}".format(bookmark_1.meta, bookmark_2.meta))
 
     @ensure_last_update_time_changed

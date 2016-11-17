@@ -199,9 +199,9 @@ class PinboardCall(object):
                         json_response[field] = Pinboard.datetime_from_string(json_response[field])
 
                 if self.components == ["posts", "all"]:
-                    return map(lambda k: Bookmark(k, self.token), json_response)
+                    return [Bookmark(k, self.token) for k in json_response]
                 elif self.components in [["posts", "get"], ["posts", "recent"]]:
-                    json_response['posts'] = map(lambda k: Bookmark(k, self.token), json_response['posts'])
+                    json_response['posts'] = [Bookmark(k, self.token) for k in json_response['posts']]
                 elif self.components == ["posts", "dates"]:
                     json_response['dates'] = {Pinboard.date_from_string(k): int(v) \
                             for k, v in json_response['dates'].iteritems()}

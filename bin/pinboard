@@ -8,6 +8,7 @@ import sys
 import tempfile
 import pprint
 import json
+import codecs
 
 if sys.version_info < (3,):
     input = raw_input
@@ -86,7 +87,8 @@ class PinboardCommandLineHandler(object):
             if self.namespace.raw:
                 print(response.read())
             else:
-                json_response = json.load(response)
+                reader = codecs.getreader("utf-8")
+                json_response = json.load(reader(response))
                 if handler is None:
                     print(json.dumps(json_response, indent=4))
                 else:
@@ -188,7 +190,7 @@ class PinboardCommandLineHandler(object):
             row_format = u"{:<" + str(max_title_length) + "}  {:<6}"
 
             print(row_format.format("Tag", "Count"))
-            for tag, count in response.iteritems():
+            for tag, count in response.items():
                 print(row_format.format(tag, count))
 
         self._call_api_and_catch_exceptions(self.pinboard.tags.get, handler)

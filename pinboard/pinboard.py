@@ -4,16 +4,17 @@ if sys.version_info < (3,):
     import urllib2 as urllib_request
     from urllib2.urlparse import urlparse
     from urllib2 import HTTPError
+    from urllib import urlencode
 else:
     import urllib.request as urllib_request
     from urllib.parse import urlparse
     from urllib.error import HTTPError
+    from urllib.parse import urlencode
 
 
 import datetime
 import json
 import operator
-import urllib
 import logging
 
 import pinboard.exceptions
@@ -171,7 +172,7 @@ class PinboardCall(object):
         if 'meta' in params:
             params['meta'] = 1 if kwargs['meta'] else 0
 
-        query_string = urllib.urlencode(params)
+        query_string = urlencode(params)
         final_url = "{}?{}".format(url, query_string)
 
         try:

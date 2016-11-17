@@ -171,7 +171,7 @@ class TestPinboardAPI(unittest.TestCase):
         self.pinboard.posts.delete(url=url)
 
     def test_add_and_remove_bookmark_through_api(self):
-        random_suffix = "".join(random.choice(string.letters) for i in range (6))
+        random_suffix = "".join(random.choice(string.ascii_letters) for i in range (6))
         url = "http://example.com/{}".format(random_suffix)
 
         self._test_add_bookmark_through_api(url)

@@ -2,7 +2,7 @@ import sys
 
 if sys.version_info < (3,):
     import urllib2 as urllib_request
-    from urllib2.urlparse import urlparse
+    from urllib2 import urlparse
     from urllib2 import HTTPError
     from urllib import urlencode
 else:
@@ -18,7 +18,7 @@ import operator
 import logging
 import codecs
 
-import pinboard.exceptions
+from . import exceptions
 
 PINBOARD_API_ENDPOINT = "https://api.pinboard.in/v1/"
 PINBOARD_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"

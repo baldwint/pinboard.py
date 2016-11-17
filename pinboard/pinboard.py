@@ -2,14 +2,12 @@ import sys
 
 if sys.version_info < (3,):
     import urllib2 as urllib_request
-    from urllib2 import urlparse
-    from urllib2 import HTTPError
+    from urllib2 import urlparse, HTTPError
     from urllib import urlencode
 else:
     import urllib.request as urllib_request
-    from urllib.parse import urlparse
+    from urllib.parse import urlparse, urlencode
     from urllib.error import HTTPError
-    from urllib.parse import urlencode
 
 
 import datetime

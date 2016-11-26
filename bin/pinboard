@@ -304,6 +304,7 @@ if __name__ == "__main__":
     parser.add_argument("--raw", action='store_true', default=False, help="Print the raw data from the Pinboard API without any formatting.")
 
     subparsers = parser.add_subparsers(dest="subparser")
+    subparsers.required = True
     subparsers.add_parser("login")
     subparsers.add_parser("last-update")
 
